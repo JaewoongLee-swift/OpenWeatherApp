@@ -88,8 +88,7 @@
 		55A850B0299A16F500661AE0 /* OpenWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				55A850F1299B19B000661AE0 /* City.swift */,
-				55A850F3299B1D3400661AE0 /* Weather.swift */,
+				55A850F5299B286600661AE0 /* Entities */,
 				55A850D5299B0A8F00661AE0 /* Presentation */,
 				55A850D2299A2CE200661AE0 /* Resource */,
 				55A850D6299B0AD600661AE0 /* Supports */,
@@ -181,6 +180,15 @@
 				55A850DF299B120900661AE0 /* MapView.swift */,
 			);
 			path = MapView;
+			sourceTree = "<group>";
+		};
+		55A850F5299B286600661AE0 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				55A850F1299B19B000661AE0 /* City.swift */,
+				55A850F3299B1D3400661AE0 /* Weather.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
