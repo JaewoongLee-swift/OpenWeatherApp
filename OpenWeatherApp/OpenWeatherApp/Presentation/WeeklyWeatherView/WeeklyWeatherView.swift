@@ -28,6 +28,10 @@ final class WeeklyWeatherView: UIView {
         let tableView = UITableView()
         
         tableView.backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(DailyWeatherCell.self, forCellReuseIdentifier: DailyWeatherCell.id)
+        tableView.separatorStyle = .none
         
         return tableView
     }()
@@ -79,12 +83,15 @@ extension WeeklyWeatherView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: DailyWeatherCell.id, for: indexPath) as? DailyWeatherCell
+        cell?.configure()
         
-        return cell
+        return cell ?? UITableViewCell()
     }
 }
 
 extension WeeklyWeatherView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        50.0
+    }
 }
