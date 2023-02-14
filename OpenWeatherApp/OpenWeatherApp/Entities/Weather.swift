@@ -12,8 +12,7 @@ struct WeatherResponse: Decodable {
     private var message: Int
     private var cnt: Int
     private var list: [WeatherItem]
-    private var city: City
-}
+    private var city: CityInfo
 
 struct WeatherItem: Decodable {
     private var dt: Int
@@ -21,6 +20,8 @@ struct WeatherItem: Decodable {
     private var weather: [WeatherInfo]
     private var clouds: CloudInfo
     private var wind: WindInfo
+    private var snow: SnowInfo?
+    private var rain: RainInfo?
     private var visibility: Int
     private var rainfallProbability: Double
     private var dayInfo: DayInfo
@@ -32,6 +33,8 @@ struct WeatherItem: Decodable {
         case weather
         case clouds
         case wind
+        case rain
+        case snow
         case visibility
         case rainfallProbability = "pop"
         case dayInfo = "sys"
