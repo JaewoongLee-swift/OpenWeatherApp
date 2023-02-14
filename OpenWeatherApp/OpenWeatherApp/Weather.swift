@@ -22,21 +22,45 @@ struct WeatherItem: Decodable {
     private var clouds: CloudInfo
     private var wind: WindInfo
     private var visibility: Int
-    private var pop: Int
-    private var sys: DayInfo
-    private var dt_txt: String
+    private var rainfallProbability: Double
+    private var dayInfo: DayInfo
+    private var dateText: String
+    
+    enum CodingKeys: String, CodingKey {
+        case dt
+        case main
+        case weather
+        case clouds
+        case wind
+        case visibility
+        case rainfallProbability = "pop"
+        case dayInfo = "sys"
+        case dateText = "dt_txt"
+    }
 }
 
 struct MainInfo: Decodable {
     private var temp: Double
-    private var feels_like: Double
-    private var temp_min: Double
-    private var temp_max: Double
+    private var feelsLike: Double
+    private var tempMin: Double
+    private var tempMax: Double
     private var pressure: Int
-    private var sea_level: Int
-    private var grnd_level: Int
+    private var seaLevel: Int
+    private var grndLevel: Int
     private var humidity: Int
-    private var temp_kf: Double
+    private var tempKf: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
+        case humidity
+        case tempKf = "temp_kf"
+    }
 }
 
 struct WeatherInfo: Decodable {
@@ -47,7 +71,27 @@ struct WeatherInfo: Decodable {
 }
 
 struct CloudInfo: Decodable {
-    private var all: Int
+    private var cloudiness: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case cloudiness = "all"
+    }
+}
+
+struct RainInfo: Decodable {
+    private var last3Hours: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case last3Hours = "3h"
+    }
+}
+
+struct SnowInfo: Decodable {
+    private var last3Hours: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case last3Hours = "3h"
+    }
 }
 
 struct WindInfo: Decodable {
@@ -57,5 +101,9 @@ struct WindInfo: Decodable {
 }
 
 struct DayInfo: Decodable {
-    private var pod: String
+    private var status: String
+    
+    enum CodingKeys: String, CodingKey {
+        case status = "pod"
+    }
 }
