@@ -16,6 +16,7 @@ final class DetailWeatherView: UICollectionView {
         
         delegate = self
         dataSource = self
+        register(DetailWeatherCell.self, forCellWithReuseIdentifier: DetailWeatherCell.id)
     }
     
     required init?(coder: NSCoder) {
@@ -34,16 +35,26 @@ final class DetailWeatherView: UICollectionView {
 
 extension DetailWeatherView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        0
+        4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.id, for: indexPath) as? DetailWeatherCell
+        cell?.configure()
         
-        return cell
+        return cell ?? UICollectionViewCell()
     }
 }
 
 extension DetailWeatherView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = window?.windowScene?.screen.bounds.width ?? 390.0
+        let cellWidth = (screenWidth - 36.0) / 2
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0.0, left: 6.0, bottom: 12.0, right: 6.0)
+    }
 }
