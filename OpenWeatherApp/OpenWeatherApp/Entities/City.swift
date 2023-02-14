@@ -10,7 +10,7 @@ import Foundation
 struct City: Decodable {
     private var id: Int
     private var name: String
-    private var coord: Coordianate
+    private var coord: CityCoordinates
     private var country: String
     private var population: Int
     private var timezone: Int
@@ -18,7 +18,7 @@ struct City: Decodable {
     private var sunset: Int
 }
 
-struct Coordianate: Decodable {
+struct CityCoordinates: Decodable {
     private let lon: Double
     private let lat: Double
 }
