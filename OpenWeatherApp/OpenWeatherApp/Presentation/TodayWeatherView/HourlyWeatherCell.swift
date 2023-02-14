@@ -52,7 +52,7 @@ final class HourlyWeatherCell: UICollectionViewCell {
         ].forEach { addSubview($0) }
         
         timeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12.0)
+            $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
         

@@ -69,9 +69,9 @@ final class TodayWeatherView: UIView {
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(separatorView.snp.bottom).offset(12.0)
-            $0.leading.equalToSuperview().inset(16.0)
-            $0.trailing.equalToSuperview().inset(16.0)
-            $0.bottom.equalToSuperview().inset(12.0)
+            $0.leading.equalToSuperview().inset(8.0)
+            $0.trailing.equalToSuperview().inset(8.0)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -96,7 +96,7 @@ extension TodayWeatherView: UICollectionViewDataSource {
 
 extension TodayWeatherView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 60.0, height: 100.0)
+        CGSize(width: 60.0, height: 80.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
