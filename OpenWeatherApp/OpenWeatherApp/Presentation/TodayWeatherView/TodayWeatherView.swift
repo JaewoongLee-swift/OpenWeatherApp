@@ -26,10 +26,16 @@ final class TodayWeatherView: UIView {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(HourlyWeatherCell.self, forCellWithReuseIdentifier: HourlyWeatherCell.id)
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
         
         return collectionView
     }()
@@ -65,22 +71,26 @@ final class TodayWeatherView: UIView {
             $0.top.equalTo(separatorView.snp.bottom).offset(12.0)
             $0.leading.equalToSuperview().inset(16.0)
             $0.trailing.equalToSuperview().inset(16.0)
+            $0.bottom.equalToSuperview().inset(12.0)
         }
     }
     
     private func setupViewStyle() {
-        backgroundColor = UIColor(red: 76/255, green: 125/255, blue: 188/255, alpha: 0.7)
+        backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
         layer.cornerRadius = 8.0
     }
 }
 
 extension TodayWeatherView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyWeatherCell.id, for: indexPath) as? HourlyWeatherCell
+        cell?.configure()
+        
+        return cell ?? UICollectionViewCell()
     }
 }
 

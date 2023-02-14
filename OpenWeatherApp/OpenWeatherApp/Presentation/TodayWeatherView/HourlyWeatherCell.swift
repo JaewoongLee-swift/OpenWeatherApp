@@ -5,4 +5,71 @@
 //  Created by 이재웅 on 2023/02/14.
 //
 
-import Foundation
+import UIKit
+import SnapKit
+
+final class HourlyWeatherCell: UICollectionViewCell {
+    static var id: String {
+        return NSStringFromClass(Self.self).components(separatedBy: ".").last!
+    }
+    
+    private lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12.0)
+        
+        return label
+    }()
+    
+    private lazy var weatherIconView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .brown
+        
+        return imageView
+    }()
+    
+    private lazy var tempLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12.0, weight: .medium)
+        
+        return label
+    }()
+    
+    func configure() {
+        setupLayout()
+        setupViewStyle()
+        
+        timeLabel.text = "오전 11시"
+        tempLabel.text = "-11º"
+    }
+    
+    private func setupLayout() {
+        [
+            timeLabel,
+            weatherIconView,
+            tempLabel
+        ].forEach { addSubview($0) }
+        
+        timeLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12.0)
+            $0.centerX.equalToSuperview()
+        }
+        
+        weatherIconView.snp.makeConstraints {
+            $0.top.equalTo(timeLabel.snp.bottom).offset(4.0)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(40.0)
+            $0.width.equalTo(40.0)
+        }
+        
+        tempLabel.snp.makeConstraints {
+            $0.top.equalTo(weatherIconView.snp.bottom).offset(4.0)
+            $0.centerX.equalToSuperview()
+        }
+    }
+    
+    private func setupViewStyle() {
+        backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+    }
+}
