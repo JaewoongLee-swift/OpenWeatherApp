@@ -13,6 +13,13 @@ final class DailyWeatherCell: UITableViewCell {
         return NSStringFromClass(Self.self).components(separatedBy: ".").last!
     }
     
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        return view
+    }()
+    
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18.0, weight: .light)
@@ -46,10 +53,18 @@ final class DailyWeatherCell: UITableViewCell {
     
     private func setupLayout() {
         [
+            separatorView,
             dayLabel,
             weatherIconView,
             tempLabel
         ].forEach { addSubview($0) }
+        
+        separatorView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(1.0)
+        }
         
         dayLabel.snp.makeConstraints {
             $0.leading.equalToSuperview()

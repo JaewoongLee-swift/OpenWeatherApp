@@ -17,13 +17,6 @@ final class WeeklyWeatherView: UIView {
         return label
     }()
     
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        
-        return view
-    }()
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         
@@ -31,7 +24,9 @@ final class WeeklyWeatherView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DailyWeatherCell.self, forCellReuseIdentifier: DailyWeatherCell.id)
+        
         tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
         
         return tableView
     }()
@@ -46,7 +41,6 @@ final class WeeklyWeatherView: UIView {
     private func setupLayout() {
         [
             infoLabel,
-            separatorView,
             tableView
         ].forEach { addSubview($0) }
         
@@ -56,15 +50,8 @@ final class WeeklyWeatherView: UIView {
             $0.trailing.equalToSuperview().inset(12.0)
         }
         
-        separatorView.snp.makeConstraints {
-            $0.top.equalTo(infoLabel.snp.bottom).offset(8.0)
-            $0.leading.equalToSuperview().inset(12.0)
-            $0.trailing.equalToSuperview().inset(12.0)
-            $0.height.equalTo(1.0)
-        }
-        
         tableView.snp.makeConstraints {
-            $0.top.equalTo(separatorView.snp.bottom)
+            $0.top.equalTo(infoLabel.snp.bottom).offset(8.0)
             $0.leading.equalToSuperview().inset(12.0)
             $0.trailing.equalToSuperview().inset(12.0)
             $0.bottom.equalToSuperview().inset(12.0)
@@ -85,6 +72,7 @@ extension WeeklyWeatherView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyWeatherCell.id, for: indexPath) as? DailyWeatherCell
         cell?.configure()
+        cell?.selectionStyle = .none
         
         return cell ?? UITableViewCell()
     }
