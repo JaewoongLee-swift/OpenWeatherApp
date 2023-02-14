@@ -7,15 +7,22 @@
 
 import Foundation
 
-struct City: Decodable {
+struct CityInfo: Decodable {
     private var id: Int
     private var name: String
     private var coord: CityCoordinates
     private var country: String
     private var population: Int
     private var timezone: Int
-    private var sunrize: Int
+    private var sunrise: Int
     private var sunset: Int
+}
+
+struct City: Decodable {
+    private var id: Int
+    private var name: String
+    private var country: String
+    private var coord: CityCoordinates
 }
 
 struct CityCoordinates: Decodable {
