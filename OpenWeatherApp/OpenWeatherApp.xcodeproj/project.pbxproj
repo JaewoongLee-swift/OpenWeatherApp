@@ -27,6 +27,7 @@
 		55A850E6299B146000661AE0 /* HourlyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A850E5299B146000661AE0 /* HourlyWeatherCell.swift */; };
 		55A850E8299B14D600661AE0 /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A850E7299B14D600661AE0 /* DailyWeatherCell.swift */; };
 		55A850EA299B14DC00661AE0 /* DetailWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A850E9299B14DC00661AE0 /* DetailWeatherCell.swift */; };
+		55A850F2299B19B100661AE0 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A850F1299B19B000661AE0 /* City.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		55A850E5299B146000661AE0 /* HourlyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCell.swift; sourceTree = "<group>"; };
 		55A850E7299B14D600661AE0 /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		55A850E9299B14DC00661AE0 /* DetailWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherCell.swift; sourceTree = "<group>"; };
+		55A850F1299B19B000661AE0 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		55A850B0299A16F500661AE0 /* OpenWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				55A850F1299B19B000661AE0 /* City.swift */,
 				55A850D5299B0A8F00661AE0 /* Presentation */,
 				55A850D2299A2CE200661AE0 /* Resource */,
 				55A850D6299B0AD600661AE0 /* Supports */,
@@ -265,6 +268,7 @@
 				55A850E6299B146000661AE0 /* HourlyWeatherCell.swift in Sources */,
 				55A850D8299B11B100661AE0 /* SearchTableView.swift in Sources */,
 				55A850B2299A16F500661AE0 /* AppDelegate.swift in Sources */,
+				55A850F2299B19B100661AE0 /* City.swift in Sources */,
 				55A850DA299B11E000661AE0 /* CurrentWeatherView.swift in Sources */,
 				55A850EA299B14DC00661AE0 /* DetailWeatherCell.swift in Sources */,
 				55A850B4299A16F500661AE0 /* SceneDelegate.swift in Sources */,
@@ -412,7 +416,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8B3RT7D582;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OpenWeatherApp/Info.plist;
+				INFOPLIST_FILE = OpenWeatherApp/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -439,7 +443,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8B3RT7D582;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OpenWeatherApp/Info.plist;
+				INFOPLIST_FILE = OpenWeatherApp/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
