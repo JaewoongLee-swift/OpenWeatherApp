@@ -13,6 +13,7 @@ struct WeatherResponse: Decodable {
     private var cnt: Int
     private var list: [WeatherItem]
     private var city: CityInfo
+}
 
 struct WeatherItem: Decodable {
     private var dt: Int
