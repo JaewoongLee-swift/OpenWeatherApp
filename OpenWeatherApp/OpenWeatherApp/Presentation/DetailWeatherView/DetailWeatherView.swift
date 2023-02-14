@@ -55,6 +55,6 @@ extension DetailWeatherView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0.0, left: 6.0, bottom: 12.0, right: 6.0)
+        UIEdgeInsets(top: 0.0, left: 0.0, bottom: 12.0, right: 0.0)
     }
 }
