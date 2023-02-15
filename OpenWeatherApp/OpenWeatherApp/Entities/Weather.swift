@@ -17,17 +17,33 @@ struct WeatherResponse: Decodable {
     func getCurrentWeather() -> CurrentWeather {
         let cityName = city.getName()
         let mainWeather = list.first?.getMainInfo()
-        let currentTemp = mainWeather?.getTemp()
-        let minTemp = mainWeather?.getTempMin()
-        let maxTemp = mainWeather?.getTempMax()
+        let currentTemp = mainWeather?.getTemp().celsiusTemperature
+        let minTemp = mainWeather?.getTempMin().celsiusTemperature
+        let maxTemp = mainWeather?.getTempMax().celsiusTemperature
         let skyCondition = list.first?.getWeatherCondition()
         
         return CurrentWeather(
             cityName: cityName,
-            currentTemp: currentTemp?.celsiusTemperature ?? 0,
+            currentTemp: currentTemp ?? 0,
             skyCondition: skyCondition ?? "Clear",
-            minTemp: minTemp?.celsiusTemperature ?? 0,
-            maxTemp: maxTemp?.celsiusTemperature ?? 0
+            minTemp: minTemp ?? 0,
+            maxTemp: maxTemp ?? 0
+        )
+    }
+    
+    func getTodayWeather() -> TodayWeather {
+        let gustSpeed = list.first?.getGustSpeed() ?? 0.0
+        var hourlyWeatherArray: [HourlyWeather] = []
+        
+        if !list.isEmpty {
+            for i in 0...15 {
+                hourlyWeatherArray.append(list[i].getHourlyWeather())
+            }
+        }
+        
+        return TodayWeather(
+            gustSpeed: Int(gustSpeed),
+            hourlyWeather: hourlyWeatherArray
         )
     }
 }
@@ -51,6 +67,22 @@ struct WeatherItem: Decodable {
     
     func getWeatherCondition() -> String? {
         return weather.first?.getWeatherCondition()
+    }
+    
+    func getGustSpeed() -> Double {
+        return wind.getGustSpeed()
+    }
+    
+    func getHourlyWeather() -> HourlyWeather {
+        let hour = dateText.timeByString
+        let temp = main.getTemp().celsiusTemperature
+        let condition = getWeatherCondition() ?? "Clear"
+        
+        return HourlyWeather(
+            time: hour,
+            temperature: temp,
+            skyCondition: condition
+        )
     }
     
     enum CodingKeys: String, CodingKey {
@@ -143,6 +175,10 @@ struct WindInfo: Decodable {
     private var speed: Double
     private var deg: Int
     private var gust: Double
+    
+    func getGustSpeed() -> Double {
+        return gust
+    }
 }
 
 struct DayInfo: Decodable {
