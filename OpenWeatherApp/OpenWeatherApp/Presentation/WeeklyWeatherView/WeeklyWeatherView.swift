@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 final class WeeklyWeatherView: UIView {
@@ -64,6 +65,14 @@ final class WeeklyWeatherView: UIView {
     private func setupViewStyle() {
         backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
         layer.cornerRadius = 8.0
+    }
+}
+
+extension Reactive where Base: WeeklyWeatherView {
+    var text: Binder<WeeklyWeather> {
+        return Binder(self.base) { view, weeklyWeather in
+            view.configure(weeklyWeather)
+        }
     }
 }
 
