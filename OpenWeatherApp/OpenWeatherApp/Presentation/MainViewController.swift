@@ -32,9 +32,7 @@ class MainViewController: UIViewController {
         setupLayout()
         
         viewModel.currentWeather
-            .subscribe(onNext:{
-                self.currentWeatherView.configure($0)
-            })
+            .bind(to: currentWeatherView.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.todayWeather

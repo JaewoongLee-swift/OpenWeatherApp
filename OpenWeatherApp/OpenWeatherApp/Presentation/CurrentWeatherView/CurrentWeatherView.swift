@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 final class CurrentWeatherView: UIView {
@@ -76,6 +77,14 @@ final class CurrentWeatherView: UIView {
         maxMinLabel.snp.makeConstraints {
             $0.top.equalTo(skyConditionLabel.snp.bottom).offset(16.0)
             $0.centerX.equalToSuperview()
+        }
+    }
+}
+
+extension Reactive where Base: CurrentWeatherView {
+    var text: Binder<CurrentWeather> {
+        return Binder(self.base) { view, currentWeather in
+            view.configure(currentWeather)
         }
     }
 }
