@@ -41,13 +41,13 @@ final class CurrentWeatherView: UIView {
         return label
     }()
     
-    func configure() {
+    func configure(_ currentWeather: CurrentWeather) {
         setupLayout()
         
-        cityLabel.text = "Seoul"
-        currentTempLabel.text = "-7℃"
-        skyConditionLabel.text = "맑음"
-        maxMinLabel.text = "최고: -1º  |  최저: -11º"
+        cityLabel.text = currentWeather.cityName
+        currentTempLabel.text = "\(currentWeather.currentTemp)℃"
+        skyConditionLabel.text = currentWeather.skyCondition
+        maxMinLabel.text = "최고: \(currentWeather.maxTemp)º  |  최저: \(currentWeather.minTemp)º"
     }
     
     private func setupLayout() {

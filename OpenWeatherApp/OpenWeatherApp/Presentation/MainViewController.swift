@@ -11,6 +11,7 @@ import SnapKit
 
 class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
+    let viewModel = MainViewModel()
     
     private lazy var scrollView = UIScrollView()
     private lazy var stackView = UIStackView()
@@ -29,7 +30,7 @@ class MainViewController: UIViewController {
         setNavigationBar()
         setupLayout()
         
-        currentWeatherView.configure()
+        currentWeatherView.configure(viewModel.currentWeather)
         todayWeatherView.configure()
         weeklyWeatherView.configure()
         mapView.configure()
