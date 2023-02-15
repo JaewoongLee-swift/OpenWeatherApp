@@ -53,7 +53,7 @@ final class DetailWeatherCell: UICollectionViewCell {
             degreeLabel.text = "\(degree)m/s"
         case 3:
             statusLabel.text = "기압"
-            degreeLabel.text = "\(Int(degree))hpa"
+            degreeLabel.text = "\(Int(degree).demical3)hpa"
         default:
             return
         }
