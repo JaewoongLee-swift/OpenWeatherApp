@@ -47,7 +47,7 @@ final class TodayWeatherView: UIView {
         collectionView.register(HourlyWeatherCell.self, forCellWithReuseIdentifier: HourlyWeatherCell.id)
         
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+        collectionView.backgroundColor = .customViewBlue
         
         return collectionView
     }()

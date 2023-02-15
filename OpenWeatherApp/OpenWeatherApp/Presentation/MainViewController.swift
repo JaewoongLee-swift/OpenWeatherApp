@@ -132,7 +132,7 @@ extension MainViewController {
     }
     
     private func setupViewControlletStyle() {
-        view.backgroundColor = UIColor(red: 166/255, green: 190/255, blue: 222/255, alpha: 1.0)
+        view.backgroundColor = .backgroundBlue
     }
     
     private func setupLayout() {

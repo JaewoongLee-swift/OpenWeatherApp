@@ -31,7 +31,7 @@ final class WeeklyWeatherView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         
-        tableView.backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+        tableView.backgroundColor = .customViewBlue
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DailyWeatherCell.self, forCellReuseIdentifier: DailyWeatherCell.id)
@@ -63,7 +63,7 @@ final class WeeklyWeatherView: UIView {
     }
     
     private func setupViewStyle() {
-        backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+        backgroundColor = .customViewBlue
         layer.cornerRadius = 8.0
     }
 }

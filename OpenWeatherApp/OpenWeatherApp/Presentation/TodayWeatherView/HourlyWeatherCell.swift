@@ -66,6 +66,6 @@ final class HourlyWeatherCell: UICollectionViewCell {
     }
     
     private func setupViewStyle() {
-        backgroundColor = UIColor(red: 105/255, green: 151/255, blue: 191/255, alpha: 1.0)
+        backgroundColor = .customViewBlue
     }
 }
