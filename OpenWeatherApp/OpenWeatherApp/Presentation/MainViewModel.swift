@@ -31,8 +31,8 @@ class MainViewModel {
     ])
     private var detailWeatherData = DetailWeather(humadity: 56, cloudiness: 50, windSpped: 1.97, gustSpeed: 3.39, pressure: 1030)
     
-    lazy var currentWeather = Observable.just(currentWeatherData)
-    lazy var todayWeather = Observable.just(todayWeatherData)
-    lazy var weeklyWeather = Observable.just(weeklyWeatherData)
-    lazy var detailWeather = Observable.just(detailWeatherData)
+    lazy var currentWeather = BehaviorSubject<CurrentWeather>(value: currentWeatherData)
+    lazy var todayWeather = BehaviorSubject<TodayWeather>(value: todayWeatherData)
+    lazy var weeklyWeather = BehaviorSubject<WeeklyWeather>(value: weeklyWeatherData)
+    lazy var detailWeather = BehaviorSubject<DetailWeather>(value: detailWeatherData)
 }
