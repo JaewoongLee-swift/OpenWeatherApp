@@ -49,6 +49,7 @@ extension SearchTableView: UITableViewDataSource {
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = city.getCountry()
         cell.detailTextLabel?.textColor = .white
+        cell.selectionStyle = .none
         
         return cell
     }
