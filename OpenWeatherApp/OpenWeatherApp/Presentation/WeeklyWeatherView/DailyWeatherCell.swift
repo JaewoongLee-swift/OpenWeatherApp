@@ -19,6 +19,7 @@ final class DailyWeatherCell: UITableViewCell {
         
         dayLabel.text = dayWeather.day
         tempLabel.text = "최소:\(dayWeather.minTemp)º  최대:\(dayWeather.maxTemp)º"
+        weatherIconView.image = UIImage(named: dayWeather.skyIcon)
     }
     
     private let separatorView: UIView = {
@@ -36,12 +37,7 @@ final class DailyWeatherCell: UITableViewCell {
         return label
     }()
     
-    private lazy var weatherIconView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .brown
-        
-        return imageView
-    }()
+    private lazy var weatherIconView = UIImageView()
     
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
