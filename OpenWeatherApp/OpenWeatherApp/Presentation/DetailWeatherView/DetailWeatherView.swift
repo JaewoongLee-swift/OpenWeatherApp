@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 final class DetailWeatherView: UICollectionView {
@@ -34,6 +35,14 @@ final class DetailWeatherView: UICollectionView {
     private func setupViewStyle() {
         backgroundColor = UIColor(red: 166/255, green: 190/255, blue: 222/255, alpha: 1.0)
         layer.cornerRadius = 8.0
+    }
+}
+
+extension Reactive where Base: DetailWeatherView {
+    var text: Binder<DetailWeather> {
+        return Binder(self.base) { view, detailWeather in
+            view.configure(detailWeather)
+        }
     }
 }
 

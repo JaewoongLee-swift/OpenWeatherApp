@@ -44,9 +44,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.detailWeather
-            .subscribe(onNext:{
-                self.detailWeatherView.configure($0)
-            })
+            .bind(to: detailWeatherView.rx.text)
             .disposed(by: disposeBag)
         
         mapView.configure()
