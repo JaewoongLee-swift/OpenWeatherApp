@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import SnapKit
 
 class MainViewController: UIViewController {
@@ -30,11 +31,31 @@ class MainViewController: UIViewController {
         setNavigationBar()
         setupLayout()
         
-        currentWeatherView.configure(viewModel.currentWeather)
-        todayWeatherView.configure(viewModel.todayWeather)
-        weeklyWeatherView.configure(viewModel.weeklyWeather)
+        viewModel.currentWeather
+            .subscribe(onNext:{
+                self.currentWeatherView.configure($0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.todayWeather
+            .subscribe(onNext:{
+                self.todayWeatherView.configure($0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.weeklyWeather
+            .subscribe(onNext:{
+                self.weeklyWeatherView.configure($0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.detailWeather
+            .subscribe(onNext:{
+                self.detailWeatherView.configure($0)
+            })
+            .disposed(by: disposeBag)
+        
         mapView.configure()
-        detailWeatherView.configure(viewModel.detailWeather)
         searchTableView.configure()
     }
 }
