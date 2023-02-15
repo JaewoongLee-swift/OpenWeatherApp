@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     private lazy var scrollView = UIScrollView()
     private lazy var stackView = UIStackView()
     private lazy var contentView = UIView()
+    private lazy var searchController = UISearchController()
     private lazy var currentWeatherView = CurrentWeatherView()
     private lazy var todayWeatherView = TodayWeatherView()
     private lazy var weeklyWeatherView = WeeklyWeatherView()
@@ -36,6 +37,8 @@ class MainViewController: UIViewController {
     }
     
     func bind() {
+        bindSearch()
+        
         viewModel.currentWeather
             .bind(to: currentWeatherView.rx.text)
             .disposed(by: disposeBag)
@@ -58,6 +61,36 @@ class MainViewController: UIViewController {
         
         viewModel.cities
             .bind(to: searchTableView.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    func bindSearch() {
+        searchController.searchBar.rx.text
+            .orEmpty
+            .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .map { text in
+                let cities = self.viewModel.cityData.filter { $0.getCityName().lowercased().hasPrefix(text.lowercased()) }
+                self.viewModel.filteredCities.onNext(cities)
+                return cities
+            }
+            .bind(to: searchTableView.rx.text)
+            .disposed(by: disposeBag)
+        
+        searchTableView.rx.itemSelected
+            .map {
+                self.searchController.searchBar.resignFirstResponder()
+                self.searchController.dismiss(animated: true)
+                self.searchController.searchBar.text = nil
+                self.searchTableView.isHidden = true
+                return $0.row
+            }
+            .withLatestFrom(viewModel.filteredCities) {index, cities in
+                return cities[index]
+            }
+            .subscribe(onNext:{ city in
+                self.viewModel.coordinates.onNext(city.getCityCoord())
+            })
             .disposed(by: disposeBag)
     }
     
@@ -86,7 +119,6 @@ extension MainViewController: UISearchControllerDelegate {
 
 extension MainViewController {
     private func setNavigationBar() {
-        let searchController = UISearchController()
         searchController.searchBar.placeholder = "Search"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
@@ -97,35 +129,6 @@ extension MainViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         navigationController?.navigationBar.standardAppearance = appearance
-        
-        searchController.searchBar.rx.text
-            .orEmpty
-            .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .map { text in
-                let cities = self.viewModel.cityData.filter { $0.getCityName().lowercased().hasPrefix(text.lowercased()) }
-                self.viewModel.filteredCities.onNext(cities)
-                return cities
-            }
-            .bind(to: searchTableView.rx.text)
-            .disposed(by: disposeBag)
-        
-            searchTableView.rx.itemSelected
-            .map {
-                searchController.searchBar.resignFirstResponder()
-                searchController.dismiss(animated: true)
-                searchController.searchBar.text = nil
-                self.searchTableView.isHidden = true
-                return $0.row
-            }
-            .asObservable()
-            .withLatestFrom(viewModel.filteredCities) {index, cities in
-                return cities[index]
-            }
-            .subscribe(onNext:{ city in
-                self.viewModel.coordinates.onNext(city.getCityCoord())
-            })
-            .disposed(by: disposeBag)
     }
     
     private func setupViewControlletStyle() {
