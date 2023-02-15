@@ -99,6 +99,14 @@ struct WeatherItem: Decodable {
         return weather.first?.getWeatherCondition()
     }
     
+    func getWeatherIcon() -> String {
+        var icon = weather.first?.getWeatherDayIcon()
+        _ = icon?.removeLast()
+        let iconID = (icon ?? "01") + "d"
+        
+        return iconID
+    }
+    
     func getGustSpeed() -> Double {
         return wind.getGustSpeed()
     }
@@ -108,23 +116,23 @@ struct WeatherItem: Decodable {
     }
     
     func getDayWeather() -> DayWeather {
-        let skyCondition = getWeatherCondition() ?? "Clear"
+        let skyCondition = getWeatherIcon()
         let minTemp = main.getTempMin().celsiusTemperature
         let maxTemp = main.getTempMax().celsiusTemperature
         let day = dateText.dayInKorea
         
-        return DayWeather(day: day, skyCondition: skyCondition, minTemp: minTemp, maxTemp: maxTemp)
+        return DayWeather(day: day, skyIcon: skyCondition, minTemp: minTemp, maxTemp: maxTemp)
     }
     
     func getHourlyWeather() -> HourlyWeather {
         let hour = dateText.timeByString
         let temp = main.getTemp().celsiusTemperature
-        let condition = getWeatherCondition() ?? "Clear"
+        let weatherIcon = getWeatherIcon()
         
         return HourlyWeather(
             time: hour,
             temperature: temp,
-            skyCondition: condition
+            skyIcon: weatherIcon
         )
     }
     
@@ -199,6 +207,10 @@ struct WeatherInfo: Decodable {
     
     func getWeatherCondition() -> String {
         return main
+    }
+    
+    func getWeatherDayIcon() -> String {
+        return icon
     }
 }
 

@@ -13,7 +13,7 @@ struct WeeklyWeather {
 
 struct DayWeather {
     var day: String
-    var skyCondition: String
+    var skyIcon: String
     var minTemp: Int
     var maxTemp: Int
 }

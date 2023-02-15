@@ -15,5 +15,5 @@ struct TodayWeather {
 struct HourlyWeather {
     var time: Int
     var temperature: Int
-    var skyCondition: String
+    var skyIcon: String
 }
