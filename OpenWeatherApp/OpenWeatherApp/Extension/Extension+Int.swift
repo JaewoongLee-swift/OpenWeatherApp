@@ -8,6 +8,7 @@
 import Foundation
 
 extension Int {
+    /// Int타입의 값을 천의 자리마다 구분점을 만들어 String타입으로 반환하는 변수
     var demical3: String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal

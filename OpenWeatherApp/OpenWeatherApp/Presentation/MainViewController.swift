@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: MainViewModel
     
+    //MARK: MainUI
     private lazy var scrollView = UIScrollView()
     private lazy var stackView = UIStackView()
     private lazy var contentView = UIView()
@@ -36,6 +37,7 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Bind views
     func bind() {
         bindSearch()
         
@@ -64,6 +66,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    //MARK: Bind SearchController and SearchBar
     func bindSearch() {
         searchController.searchBar.rx.text
             .orEmpty
@@ -94,6 +97,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    //MARK: ViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,6 +112,7 @@ class MainViewController: UIViewController {
     }
 }
 
+//MARK: SearchControllerDelegate
 extension MainViewController: UISearchControllerDelegate {
     func presentSearchController(_ searchController: UISearchController) {
         animateHideSearchTableView(false)
@@ -118,6 +123,7 @@ extension MainViewController: UISearchControllerDelegate {
     }
 }
 
+//MARK: Layout and ViewStyle methods
 extension MainViewController {
     private func setNavigationBar() {
         searchController.searchBar.placeholder = "Search"
@@ -147,6 +153,7 @@ extension MainViewController {
             }
         }
     }
+    
     private func setupLayout() {
         setupStackView()
         searchTableView.isHidden = true

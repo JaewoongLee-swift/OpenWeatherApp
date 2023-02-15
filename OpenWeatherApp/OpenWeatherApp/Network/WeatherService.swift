@@ -10,6 +10,7 @@ import Alamofire
 import RxSwift
 
 class WeatherService {
+    /// 위도, 경도를 받아 해당 위치의 날씨정보 Observable을 반환하는 네트워크 메소드
     func requestWeather(at coord: Coordinates) -> Observable<WeatherResponse> {
         let url = "http://api.openweathermap.org/data/2.5/forecast"
         let parameters: [String: Any] = [

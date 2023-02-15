@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: CityInfo
 struct CityInfo: Decodable {
     private var id: Int
     private var name: String
@@ -22,6 +23,7 @@ struct CityInfo: Decodable {
     }
 }
 
+//MARK: City
 struct City: Decodable {
     private var id: Int
     private var name: String
@@ -54,6 +56,7 @@ struct City: Decodable {
     }
 }
 
+//MARK: CityCoordinates
 struct CityCoordinates: Decodable {
     private let lon: Double
     private let lat: Double

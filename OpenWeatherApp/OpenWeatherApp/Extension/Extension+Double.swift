@@ -8,6 +8,7 @@
 import Foundation
 
 extension Double {
+    /// Double타입인 절대온도를 Int타입의 섭씨온도로 반환하는 변수
     var celsiusTemperature: Int {
         return Int(self - 273.15)
     }

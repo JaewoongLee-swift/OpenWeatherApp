@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: WeatherResponse
 struct WeatherResponse: Decodable {
     private var cod: String
     private var message: Int
@@ -99,6 +100,7 @@ struct WeatherResponse: Decodable {
     }
 }
 
+//MARK: WeatherItem
 struct WeatherItem: Decodable {
     private var dt: Int
     private var main: MainInfo
@@ -180,6 +182,7 @@ struct WeatherItem: Decodable {
     }
 }
 
+//MARK: MainInfo
 struct MainInfo: Decodable {
     private var temp: Double
     private var feelsLike: Double
@@ -224,6 +227,7 @@ struct MainInfo: Decodable {
     }
 }
 
+//MARK: WeatherInfo
 struct WeatherInfo: Decodable {
     private var id: Int
     private var main: String
@@ -239,6 +243,7 @@ struct WeatherInfo: Decodable {
     }
 }
 
+//MARK: CloudInfo
 struct CloudInfo: Decodable {
     private var cloudiness: Int
     
@@ -251,6 +256,7 @@ struct CloudInfo: Decodable {
     }
 }
 
+//MARK: RainInfo
 struct RainInfo: Decodable {
     private var last3Hours: Double
     
@@ -259,6 +265,7 @@ struct RainInfo: Decodable {
     }
 }
 
+//MARK: SnowInfo
 struct SnowInfo: Decodable {
     private var last3Hours: Double
     
@@ -267,6 +274,7 @@ struct SnowInfo: Decodable {
     }
 }
 
+//MARK: WindInfo
 struct WindInfo: Decodable {
     private var speed: Double
     private var deg: Int
@@ -281,6 +289,7 @@ struct WindInfo: Decodable {
     }
 }
 
+//MARK: DayInfo
 struct DayInfo: Decodable {
     private var status: String
     

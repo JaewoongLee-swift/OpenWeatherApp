@@ -8,6 +8,7 @@
 import Foundation
 
 class JsonLoader {
+    /// Json 확장자 형식 파일을 Data 타입으로 반환하는 메소드
     static func load<T: Decodable>(type: T.Type, fileName: String) -> T? {
         do {
             let fileURL = try fileURL(of: fileName)

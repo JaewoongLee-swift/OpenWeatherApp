@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    /// 현재날짜를 Int타입의 날짜로 반환하는 변수(ex: 20230101)
     var currentDayByInt: Int {
         let now = Date()
         let formatter = DateFormatter()
@@ -19,6 +20,7 @@ extension Date {
         return nowInt
     }
     
+    /// 현재시간을 Int타입의 시간으로 반환하는 변수 (ex: 현재 오전 7시 -> return 7)
     var currentTimeByString: Int {
         let now = Date()
         let formatter = DateFormatter()

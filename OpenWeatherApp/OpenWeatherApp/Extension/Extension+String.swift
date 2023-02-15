@@ -8,6 +8,7 @@
 import Foundation
 
 extension String {
+    /// yyyy-MM-dd HH:mm:ss 형식의 String 타입 날짜 데이터에서 Int타입의 시간을 반환하는 변수
     var timeByString: Int {
         var timeStringArray = self.split(separator: " ")
         let timeString = timeStringArray.popLast() ?? "00:00:00"
@@ -16,6 +17,7 @@ extension String {
         return Int(hourString) ?? 0
     }
     
+    /// yyyy-MM-dd HH:mm:ss 형식의 String 타입 데이터의 요일을 반환하는 변수. 오늘일 경우 요일이 아닌 "오늘"으로 반환됨.
     var dayInKorea: String {
         //ex: self = 2023-02-15 23:55:55
         let days = (self.split(separator: " ").first ?? "2023-01-01").split(separator: "-").map { Int($0) }
