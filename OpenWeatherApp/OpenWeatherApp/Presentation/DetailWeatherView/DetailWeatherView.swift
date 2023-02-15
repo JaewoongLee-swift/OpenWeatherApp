@@ -57,11 +57,11 @@ extension DetailWeatherView: UICollectionViewDataSource {
         if let weather = detailWeather {
             switch indexPath.row {
             case 0:
-                cell?.configure(0, Double(weather.humadity), nil)
+                cell?.configure(0, Double(weather.humidity), nil)
             case 1:
                 cell?.configure(1, Double(weather.cloudiness), nil)
             case 2:
-                cell?.configure(2, weather.windSpped, weather.gustSpeed)
+                cell?.configure(2, weather.windSpeed, weather.gustSpeed)
             case 3:
                 cell?.configure(3, Double(weather.pressure), nil)
             default:

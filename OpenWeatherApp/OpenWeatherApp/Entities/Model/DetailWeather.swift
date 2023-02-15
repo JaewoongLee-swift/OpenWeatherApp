@@ -8,9 +8,9 @@
 import Foundation
 
 struct DetailWeather {
-    var humadity: Int
+    var humidity: Int
     var cloudiness: Int
-    var windSpped: Double
+    var windSpeed: Double
     var gustSpeed: Double
     var pressure: Int
 }
