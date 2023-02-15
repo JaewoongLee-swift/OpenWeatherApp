@@ -36,12 +36,12 @@ final class HourlyWeatherCell: UICollectionViewCell {
         return label
     }()
     
-    func configure() {
+    func configure(_ hourlyWeather: HourlyWeather) {
         setupLayout()
         setupViewStyle()
         
-        timeLabel.text = "오전 11시"
-        tempLabel.text = "-11º"
+        timeLabel.text = "\(hourlyWeather.time)시"
+        tempLabel.text = "\(hourlyWeather.temperature)º"
     }
     
     private func setupLayout() {

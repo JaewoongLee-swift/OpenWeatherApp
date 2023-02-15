@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
         setupLayout()
         
         currentWeatherView.configure(viewModel.currentWeather)
-        todayWeatherView.configure()
+        todayWeatherView.configure(viewModel.todayWeather)
         weeklyWeatherView.configure()
         mapView.configure()
         detailWeatherView.configure()

@@ -9,6 +9,17 @@ import UIKit
 import SnapKit
 
 final class TodayWeatherView: UIView {
+    private var hourlyWeather: [HourlyWeather] = []
+    
+    func configure(_ todayWeather: TodayWeather) {
+        setupLayout()
+        setupViewStyle()
+        
+        windSpeedLabel.text = "돌풍의 풍속은 최대 \(todayWeather.gustSpeed)m/s입니다."
+        hourlyWeather = todayWeather.hourlyWeather
+        collectionView.reloadData()
+    }
+    
     private lazy var windSpeedLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16.0)
@@ -39,13 +50,6 @@ final class TodayWeatherView: UIView {
         
         return collectionView
     }()
-    
-    func configure() {
-        setupLayout()
-        setupViewStyle()
-        
-        windSpeedLabel.text = "돌풍의 풍속은 최대 4m/s입니다."
-    }
     
     private func setupLayout() {
         [
@@ -83,12 +87,12 @@ final class TodayWeatherView: UIView {
 
 extension TodayWeatherView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return hourlyWeather.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyWeatherCell.id, for: indexPath) as? HourlyWeatherCell
-        cell?.configure()
+        cell?.configure(hourlyWeather[indexPath.row])
         
         return cell ?? UICollectionViewCell()
     }
