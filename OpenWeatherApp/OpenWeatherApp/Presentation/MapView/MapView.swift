@@ -6,18 +6,18 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 import MapKit
 
 final class MapView: UIView {
-    func configure() {
+    func configure(_ coordinates: Coordinates) {
         setupLayout()
         setupViewStyle()
         
-        let defaultCoord: Coordinates = (37.5683, 126.9778)
-        let centerCoord = CLLocationCoordinate2D(latitude: defaultCoord.latitude, longitude: defaultCoord.longitude)
+        let centerCoord = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
         mapView.setRegion(MKCoordinateRegion(center: centerCoord, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)), animated: true)
-        addCustomPin(defaultCoord)
+        addCustomPin(coordinates)
         rainfallLabel.text = "강수량"
     }
     
@@ -69,4 +69,12 @@ final class MapView: UIView {
 
 extension MapView: MKMapViewDelegate {
 
+}
+
+extension Reactive where Base: MapView {
+    var coordinates: Binder<Coordinates> {
+        return Binder(self.base) { view, coord in
+            view.configure(coord)
+        }
+    }
 }

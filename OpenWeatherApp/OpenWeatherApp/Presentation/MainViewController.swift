@@ -47,7 +47,9 @@ class MainViewController: UIViewController {
             .bind(to: detailWeatherView.rx.text)
             .disposed(by: disposeBag)
         
-        mapView.configure()
+        viewModel.coordinates
+            .bind(to: mapView.rx.coordinates)
+            .disposed(by: disposeBag)
         
         viewModel.cities
             .bind(to: searchTableView.rx.text)
