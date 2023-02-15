@@ -91,22 +91,22 @@ extension MainViewController {
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
         
-        let selectedObservable = searchTableView.rx.itemSelected
+            searchTableView.rx.itemSelected
             .map {
                 searchController.searchBar.resignFirstResponder()
                 searchController.dismiss(animated: true)
+                searchController.searchBar.text = nil
                 self.searchTableView.isHidden = true
                 return $0.row
             }
             .asObservable()
-        
-        Observable.combineLatest(viewModel.filteredCities, selectedObservable) { cities, index in
-            return cities[index]
-        }
-        .subscribe(onNext:{ city in
-            print(city)
-        })
-        .disposed(by: disposeBag)
+            .withLatestFrom(viewModel.filteredCities) {index, cities in
+                return cities[index]
+            }
+            .subscribe(onNext:{ city in
+                print(city)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupViewControlletStyle() {
