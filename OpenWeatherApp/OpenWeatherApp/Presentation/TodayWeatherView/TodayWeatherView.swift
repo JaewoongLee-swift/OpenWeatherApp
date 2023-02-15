@@ -101,7 +101,7 @@ extension TodayWeatherView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyWeatherCell.id, for: indexPath) as? HourlyWeatherCell
-        cell?.configure(hourlyWeather[indexPath.row])
+        cell?.configure(hourlyWeather[indexPath.row], indexPath.row)
         
         return cell ?? UICollectionViewCell()
     }
