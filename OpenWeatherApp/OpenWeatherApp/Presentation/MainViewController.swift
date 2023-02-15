@@ -12,7 +12,7 @@ import SnapKit
 
 class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
-    let viewModel = MainViewModel()
+    let viewModel: MainViewModel
     
     private lazy var scrollView = UIScrollView()
     private lazy var stackView = UIStackView()
@@ -24,21 +24,15 @@ class MainViewController: UIViewController {
     private lazy var detailWeatherView = DetailWeatherView()
     private lazy var searchTableView = SearchTableView()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    init(viewModel: MainViewModel = MainViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
         
         bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        attribute()
-        setupLayout()
     }
     
     func bind() {
@@ -65,6 +59,13 @@ class MainViewController: UIViewController {
         viewModel.cities
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        attribute()
+        setupLayout()
     }
     
     func attribute() {
