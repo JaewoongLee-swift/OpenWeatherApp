@@ -51,7 +51,6 @@ struct City: Decodable {
         }
         
         return cityArray
-        
     }
 }
 

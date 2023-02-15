@@ -52,6 +52,21 @@ class MainViewController: UIViewController {
         viewModel.cities
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
+        
+        
+        let selectedObservable = searchTableView.rx.itemSelected
+            .map { $0.row }
+            .asObservable()
+        
+        Observable.combineLatest(viewModel.filteredCities, selectedObservable) { cities, index in
+            return cities[index]
+        }
+        .subscribe(onNext:{ city in
+            print(city)
+//            self.viewModel.defaultCoord = city.getCityCoord()
+        })
+        .disposed(by: disposeBag)
+        
     }
 }
 
@@ -84,7 +99,9 @@ extension MainViewController {
             .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .map { text in
-                return self.viewModel.cityData.filter { $0.getCityName().lowercased().hasPrefix(text.lowercased()) }
+                let cities = self.viewModel.cityData.filter { $0.getCityName().lowercased().hasPrefix(text.lowercased()) }
+                self.viewModel.filteredCities.onNext(cities)
+                return cities
             }
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)

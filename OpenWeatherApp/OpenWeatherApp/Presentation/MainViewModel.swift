@@ -14,14 +14,15 @@ class MainViewModel {
     lazy var weeklyWeather = PublishSubject<WeeklyWeather>()
     lazy var detailWeather = PublishSubject<DetailWeather>()
     lazy var cities = BehaviorSubject<[City]>(value: cityData)
+    var filteredCities = PublishSubject<[City]>()
     
     var cityData: [City]
+    var defaultCoord: Coordinates = (37.5683, 126.9778)
     
     init(weatherDomain: WeatherService = WeatherService()) {
         cityData = City.parseCityData()
         
-        let seoulCoord: Coordinates = (37.5683, 126.9778)
-        let weatherObservable = weatherDomain.requestWeather(at: seoulCoord)
+        let weatherObservable = weatherDomain.requestWeather(at: defaultCoord)
         
         _ = weatherObservable
             .map { $0.getCurrentWeather() }
