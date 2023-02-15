@@ -21,12 +21,7 @@ final class HourlyWeatherCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var weatherIconView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .brown
-        
-        return imageView
-    }()
+    private lazy var weatherIconView = UIImageView()
     
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
@@ -42,6 +37,7 @@ final class HourlyWeatherCell: UICollectionViewCell {
         
         timeLabel.text = "\(hourlyWeather.time)시"
         tempLabel.text = "\(hourlyWeather.temperature)º"
+        weatherIconView.image = UIImage(named: hourlyWeather.skyIcon)
     }
     
     private func setupLayout() {
