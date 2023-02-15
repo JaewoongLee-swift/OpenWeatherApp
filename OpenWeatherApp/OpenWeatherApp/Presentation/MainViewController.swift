@@ -82,7 +82,7 @@ class MainViewController: UIViewController {
                 self.searchController.searchBar.resignFirstResponder()
                 self.searchController.dismiss(animated: true)
                 self.searchController.searchBar.text = nil
-                self.searchTableView.isHidden = true
+                self.animateHideSearchTableView(true)
                 return $0.row
             }
             .withLatestFrom(viewModel.filteredCities) {index, cities in
@@ -99,6 +99,7 @@ class MainViewController: UIViewController {
         
         attribute()
         setupLayout()
+        searchTableView.alpha = 0.0
     }
     
     func attribute() {
@@ -109,11 +110,11 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchControllerDelegate {
     func presentSearchController(_ searchController: UISearchController) {
-        searchTableView.isHidden = false
+        animateHideSearchTableView(false)
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        searchTableView.isHidden = true
+        animateHideSearchTableView(true)
     }
 }
 
@@ -135,6 +136,17 @@ extension MainViewController {
         view.backgroundColor = .backgroundBlue
     }
     
+    private func animateHideSearchTableView(_ isHidden: Bool) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+            guard let self = self else { return }
+            if isHidden {
+                self.searchTableView.alpha = 0.0
+            } else {
+                self.searchTableView.alpha = 1.0
+                self.searchTableView.isHidden = isHidden
+            }
+        }
+    }
     private func setupLayout() {
         setupStackView()
         searchTableView.isHidden = true
