@@ -91,7 +91,8 @@ OepnWeatherApp
 
 ### 프로젝트 설명
 1. MVVM 디자인패턴을 적용해 View는 View Life Cycle과 UI 구성요소 binding, ViewModel은 비즈니스 로직 관리 및 Model 통신, Model은 데이터를 관리하도록 분리하였습니다.
-2. WeatherManager의 API Key는 PrivateKey.swift 파일 내의 OpenWatherAPI 구조체의 key 변수를 통해 받아와 사용하였습니다. PrivateKey.swift는 gitignore된 상태입니다. 프로젝트를 사용하기 위해선 Network 폴더 내에 OpenWatherAPI 구조체 생성 및 개인 API Key가 필요합니다.
-3. 시간별 날씨는 현재시간 기준으로 2일간 3시간 간격으로 나타납니다.
-4. 일별 날씨는 현재시간 기준으로 5일간 24시간 간격으로 나타납니다.
-5. OpenWeather API 중 5 day/ 3 hour forecast API를 사용하였습니다. (링크 : https://openweathermap.org/forecast5)
+2. Custom View의 경우 bind extension 메소드를 구현해 코드 가독성을 높혀 bind 메소드 관리가 용이하도록 하였습니다.
+3. WeatherManager의 API Key는 PrivateKey.swift 파일 내의 OpenWatherAPI 구조체의 key 변수를 통해 받아와 사용하였습니다. PrivateKey.swift는 gitignore된 상태입니다. 프로젝트를 사용하기 위해선 Network 폴더 내에 OpenWatherAPI 구조체 생성 및 개인 API Key가 필요합니다.
+4. 시간별 날씨는 현재시간 기준으로 2일간 3시간 간격으로 나타납니다.
+5. 일별 날씨는 현재시간 기준으로 5일간 24시간 간격으로 나타납니다.
+6. OpenWeather API 중 5 day/ 3 hour forecast API를 사용하였습니다. (링크 : https://openweathermap.org/forecast5)
