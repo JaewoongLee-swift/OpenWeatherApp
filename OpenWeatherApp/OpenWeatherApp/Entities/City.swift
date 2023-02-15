@@ -32,8 +32,26 @@ struct City: Decodable {
         return name
     }
     
+    func getCountry() -> String {
+        return country
+    }
+    
     func getCityCoord() -> Coordinates {
         return coord.getCoord()
+    }
+    
+    static func parseCityData() -> [City] {
+        let data = JsonLoader.data(fileName: "citylist")!
+        
+        var cityArray: [City] = []
+        do {
+            cityArray = try JSONDecoder().decode([City].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return cityArray
+        
     }
 }
 

@@ -13,8 +13,11 @@ class MainViewModel {
     lazy var todayWeather = PublishSubject<TodayWeather>()
     lazy var weeklyWeather = PublishSubject<WeeklyWeather>()
     lazy var detailWeather = PublishSubject<DetailWeather>()
+    var cityData: [City]
     
-    init(weatherDomain: WeatherService = WeatherService(), cityDomain: CityStore = CityStore()) {
+    init(weatherDomain: WeatherService = WeatherService()) {
+        cityData = City.parseCityData()
+        
         let seoulCoord: Coordinates = (37.5683, 126.9778)
         let weatherObservable = weatherDomain.requestWeather(at: seoulCoord)
         

@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         mapView.configure()
-        searchTableView.configure()
+        searchTableView.configure(viewModel.cityData)
     }
 }
 
