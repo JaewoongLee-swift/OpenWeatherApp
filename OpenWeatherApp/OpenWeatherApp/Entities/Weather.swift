@@ -64,6 +64,18 @@ struct WeatherResponse: Decodable {
         
         return WeeklyWeather(dayWeather: dayWeatherArray)
     }
+    
+    func getDeatilWeather() -> DetailWeather {
+        let weatherItem = list.first
+        let mainInfo = weatherItem?.getMainInfo()
+        let humadity = mainInfo?.getHumidity() ?? 0
+        let pressure = mainInfo?.getPressure() ?? 1000
+        let cloudiness = weatherItem?.getCloudiness() ?? 0
+        let windSpeed = weatherItem?.getWindSpeed() ?? 0.0
+        let gustSpeed = weatherItem?.getGustSpeed() ?? 0.0
+        
+        return DetailWeather(humidity: humadity, cloudiness: cloudiness, windSpeed: windSpeed, gustSpeed: gustSpeed, pressure: pressure)
+    }
 }
 
 struct WeatherItem: Decodable {
@@ -91,6 +103,10 @@ struct WeatherItem: Decodable {
         return wind.getGustSpeed()
     }
     
+    func getWindSpeed() -> Double {
+        return wind.getWindSpeed()
+    }
+    
     func getDayWeather() -> DayWeather {
         let skyCondition = getWeatherCondition() ?? "Clear"
         let minTemp = main.getTempMin().celsiusTemperature
@@ -110,6 +126,10 @@ struct WeatherItem: Decodable {
             temperature: temp,
             skyCondition: condition
         )
+    }
+    
+    func getCloudiness() -> Int {
+        return clouds.getCloudiness()
     }
     
     enum CodingKeys: String, CodingKey {
@@ -150,6 +170,14 @@ struct MainInfo: Decodable {
         return tempMax
     }
     
+    func getHumidity() -> Int {
+        return humidity
+    }
+    
+    func getPressure() -> Int {
+        return pressure
+    }
+    
     enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
@@ -176,6 +204,10 @@ struct WeatherInfo: Decodable {
 
 struct CloudInfo: Decodable {
     private var cloudiness: Int
+    
+    func getCloudiness() -> Int {
+        return cloudiness
+    }
     
     enum CodingKeys: String, CodingKey {
         case cloudiness = "all"
@@ -205,6 +237,10 @@ struct WindInfo: Decodable {
     
     func getGustSpeed() -> Double {
         return gust
+    }
+    
+    func getWindSpeed() -> Double {
+        return speed
     }
 }
 
