@@ -74,8 +74,24 @@ struct WeatherResponse: Decodable {
         var weatherItems: [WeatherItem] = []
         
         if !list.isEmpty {
-            for i in stride(from: 0, through: 40, by: 7) {
-                weatherItems.append(list[i])
+            for i in 0..<list.count {
+                if weatherItems.count == 5 {
+                    break
+                }
+                
+                let weather = list[i]
+                let now = Date()
+                let currentDay = now.currentDayByInt
+                let weatherDay = Int(weather.getDateText().split(separator: " ")[0].split(separator: "-").reduce("") { $0 + $1 })!
+                
+                if currentDay <= weatherDay {
+                    let weatherHour = Int(weather.getDateText().split(separator: " ")[1].split(separator: ":")[0])!
+                    let currentHour = now.currentTimeByString
+                    
+                    if (weatherHour / 3) == (currentHour / 3) {
+                        weatherItems.append(list[i])
+                    }
+                }
             }
         }
         
