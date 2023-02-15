@@ -36,8 +36,29 @@ struct WeatherResponse: Decodable {
         var hourlyWeatherArray: [HourlyWeather] = []
         
         if !list.isEmpty {
-            for i in 0...15 {
-                hourlyWeatherArray.append(list[i].getHourlyWeather())
+            for i in 0..<list.count {
+                if hourlyWeatherArray.count == 16 {
+                    break
+                }
+                
+                let weather = list[i]
+                let now = Date()
+                let currentDay = now.currentDayByInt
+                let weatherDay = Int(weather.getDateText().split(separator: " ")[0].split(separator: "-").reduce("") { $0 + $1 })!
+                
+                if currentDay <= weatherDay {
+                    if currentDay < weatherDay {
+                        hourlyWeatherArray.append(weather.getHourlyWeather())
+                        continue
+                    }
+                    
+                    let weatherHour = Int(weather.getDateText().split(separator: " ")[1].split(separator: ":")[0])!
+                    let currentHour = now.currentTimeByString
+                    
+                    if (weatherHour / 3) >= (currentHour / 3) {
+                        hourlyWeatherArray.append(weather.getHourlyWeather())
+                    }
+                }
             }
         }
         
@@ -113,6 +134,10 @@ struct WeatherItem: Decodable {
     
     func getWindSpeed() -> Double {
         return wind.getWindSpeed()
+    }
+    
+    func getDateText() -> String {
+        return dateText
     }
     
     func getDayWeather() -> DayWeather {
