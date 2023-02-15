@@ -13,8 +13,9 @@ class MainViewModel {
     lazy var todayWeather = PublishSubject<TodayWeather>()
     lazy var weeklyWeather = PublishSubject<WeeklyWeather>()
     lazy var detailWeather = PublishSubject<DetailWeather>()
+    lazy var cities = BehaviorSubject<[City]>(value: cityData)
+    
     var cityData: [City]
-    var sortedCityData: [City] = []
     
     init(weatherDomain: WeatherService = WeatherService()) {
         cityData = City.parseCityData()

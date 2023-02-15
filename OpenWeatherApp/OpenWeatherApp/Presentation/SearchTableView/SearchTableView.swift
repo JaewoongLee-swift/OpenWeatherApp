@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class SearchTableView: UITableView {
     private var cities: [City] = []
@@ -55,4 +56,12 @@ extension SearchTableView: UITableViewDataSource {
 
 extension SearchTableView: UITableViewDelegate {
     
+}
+
+extension Reactive where Base: SearchTableView {
+    var text: Binder<[City]> {
+        return Binder(self.base) { view, cities in
+            view.configure(cities)
+        }
+    }
 }

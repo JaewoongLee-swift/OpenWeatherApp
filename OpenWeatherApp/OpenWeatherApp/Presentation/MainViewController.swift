@@ -48,7 +48,10 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         mapView.configure()
-        searchTableView.configure(viewModel.cityData)
+        
+        viewModel.cities
+            .bind(to: searchTableView.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -80,15 +83,10 @@ extension MainViewController {
             .orEmpty
             .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .subscribe(onNext: { text in
-                self.viewModel.sortedCityData = self.viewModel.cityData.filter { city in
-                    let name = city.getCityName().lowercased()
-                    return name.hasPrefix(text.lowercased())
-                }
-                
-                self.searchTableView.configure(self.viewModel.sortedCityData)
-                self.searchTableView.reloadData()
-            })
+            .map { text in
+                return self.viewModel.cityData.filter { $0.getCityName().lowercased().hasPrefix(text.lowercased()) }
+            }
+            .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
     }
     
