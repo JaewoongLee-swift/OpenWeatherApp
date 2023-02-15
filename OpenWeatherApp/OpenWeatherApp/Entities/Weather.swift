@@ -46,6 +46,24 @@ struct WeatherResponse: Decodable {
             hourlyWeather: hourlyWeatherArray
         )
     }
+    
+    func getWeeklyWeather() -> WeeklyWeather {
+        var dayWeatherArray: [DayWeather] = []
+        var weatherItems: [WeatherItem] = []
+        
+        if !list.isEmpty {
+            for i in stride(from: 0, through: 40, by: 7) {
+                weatherItems.append(list[i])
+            }
+        }
+        
+        for weatherItem in weatherItems {
+            let dayWeather = weatherItem.getDayWeather()
+            dayWeatherArray.append(dayWeather)
+        }
+        
+        return WeeklyWeather(dayWeather: dayWeatherArray)
+    }
 }
 
 struct WeatherItem: Decodable {
@@ -71,6 +89,15 @@ struct WeatherItem: Decodable {
     
     func getGustSpeed() -> Double {
         return wind.getGustSpeed()
+    }
+    
+    func getDayWeather() -> DayWeather {
+        let skyCondition = getWeatherCondition() ?? "Clear"
+        let minTemp = main.getTempMin().celsiusTemperature
+        let maxTemp = main.getTempMax().celsiusTemperature
+        let day = dateText.dayInKorea
+        
+        return DayWeather(day: day, skyCondition: skyCondition, minTemp: minTemp, maxTemp: maxTemp)
     }
     
     func getHourlyWeather() -> HourlyWeather {
