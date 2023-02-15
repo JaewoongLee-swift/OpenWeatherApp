@@ -75,6 +75,21 @@ extension MainViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         navigationController?.navigationBar.standardAppearance = appearance
+        
+        searchController.searchBar.rx.text
+            .orEmpty
+            .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .subscribe(onNext: { text in
+                self.viewModel.sortedCityData = self.viewModel.cityData.filter { city in
+                    let name = city.getCityName().lowercased()
+                    return name.hasPrefix(text.lowercased())
+                }
+                
+                self.searchTableView.configure(self.viewModel.sortedCityData)
+                self.searchTableView.reloadData()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupViewControlletStyle() {
