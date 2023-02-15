@@ -13,6 +13,14 @@ final class DailyWeatherCell: UITableViewCell {
         return NSStringFromClass(Self.self).components(separatedBy: ".").last!
     }
     
+    func configure(_ dayWeather: DayWeather) {
+        setupLayout()
+        setupViewStyle()
+        
+        dayLabel.text = dayWeather.day
+        tempLabel.text = "최소:\(dayWeather.minTemp)º  최대:\(dayWeather.maxTemp)º"
+    }
+    
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -42,14 +50,6 @@ final class DailyWeatherCell: UITableViewCell {
         
         return label
     }()
-    
-    func configure() {
-        setupLayout()
-        setupViewStyle()
-        
-        dayLabel.text = "오늘"
-        tempLabel.text = "최소:-12º  최대:-12º"
-    }
     
     private func setupLayout() {
         [

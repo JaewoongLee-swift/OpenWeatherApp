@@ -9,6 +9,16 @@ import UIKit
 import SnapKit
 
 final class WeeklyWeatherView: UIView {
+    private var weeklyWeather: [DayWeather] = []
+    
+    func configure(_ weeklyWeather: WeeklyWeather) {
+        setupLayout()
+        setupViewStyle()
+        
+        infoLabel.text = "5일간의 일기예보"
+        self.weeklyWeather = weeklyWeather.dayWeather
+    }
+    
     private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondarySystemBackground
@@ -30,13 +40,6 @@ final class WeeklyWeatherView: UIView {
         
         return tableView
     }()
-    
-    func configure() {
-        setupLayout()
-        setupViewStyle()
-        
-        infoLabel.text = "5일간의 일기예보"
-    }
     
     private func setupLayout() {
         [
@@ -66,12 +69,12 @@ final class WeeklyWeatherView: UIView {
 
 extension WeeklyWeatherView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        weeklyWeather.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyWeatherCell.id, for: indexPath) as? DailyWeatherCell
-        cell?.configure()
+        cell?.configure(weeklyWeather[indexPath.row])
         cell?.selectionStyle = .none
         
         return cell ?? UITableViewCell()

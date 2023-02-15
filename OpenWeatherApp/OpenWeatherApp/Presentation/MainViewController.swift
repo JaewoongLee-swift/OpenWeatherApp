@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
         
         currentWeatherView.configure(viewModel.currentWeather)
         todayWeatherView.configure(viewModel.todayWeather)
-        weeklyWeatherView.configure()
+        weeklyWeatherView.configure(viewModel.weeklyWeather)
         mapView.configure()
         detailWeatherView.configure()
         searchTableView.configure()
