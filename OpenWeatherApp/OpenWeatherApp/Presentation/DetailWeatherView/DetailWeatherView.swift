@@ -9,6 +9,14 @@ import UIKit
 import SnapKit
 
 final class DetailWeatherView: UICollectionView {
+    private var detailWeather: DetailWeather?
+    
+    func configure(_ detailWeather: DetailWeather) {
+        setupViewStyle()
+        
+        self.detailWeather = detailWeather
+        self.reloadData()
+    }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let layout = UICollectionViewFlowLayout()
@@ -21,10 +29,6 @@ final class DetailWeatherView: UICollectionView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure() {
-        setupViewStyle()
     }
     
     private func setupViewStyle() {
@@ -40,7 +44,21 @@ extension DetailWeatherView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.id, for: indexPath) as? DetailWeatherCell
-        cell?.configure()
+        
+        if let weather = detailWeather {
+            switch indexPath.row {
+            case 0:
+                cell?.configure(0, Double(weather.humadity), nil)
+            case 1:
+                cell?.configure(1, Double(weather.cloudiness), nil)
+            case 2:
+                cell?.configure(2, weather.windSpped, weather.gustSpeed)
+            case 3:
+                cell?.configure(3, Double(weather.pressure), nil)
+            default:
+                return UICollectionViewCell()
+            }
+        }
         
         return cell ?? UICollectionViewCell()
     }

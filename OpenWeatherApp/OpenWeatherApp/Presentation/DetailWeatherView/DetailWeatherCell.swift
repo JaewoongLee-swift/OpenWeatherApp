@@ -37,13 +37,30 @@ final class DetailWeatherCell: UICollectionViewCell {
         return label
     }()
     
-    func configure() {
+    func configure(_ index: Int, _ degree: Double, _ gustSpeed: Double?) {
         setupLayout()
         setupViewStyle()
         
-        statusLabel.text = "바람 속도"
-        degreeLabel.text = "1.97m/s"
-        detailDegreeLabel.text = "강풍: 3.39m/s"
+        switch index {
+        case 0:
+            statusLabel.text = "습도"
+            degreeLabel.text = "\(Int(degree))%"
+        case 1:
+            statusLabel.text = "구름"
+            degreeLabel.text = "\(Int(degree))%"
+        case 2:
+            statusLabel.text = "바람 속도"
+            degreeLabel.text = "\(degree)%"
+        case 3:
+            statusLabel.text = "기압"
+            degreeLabel.text = "\(Int(degree))hpa"
+        default:
+            return
+        }
+        
+        if let gust = gustSpeed {
+            detailDegreeLabel.text = "강풍: \(gust)m/s"
+        }
     }
     
     private func setupLayout() {
