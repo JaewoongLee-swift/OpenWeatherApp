@@ -25,6 +25,7 @@ final class DetailWeatherView: UICollectionView {
         
         delegate = self
         dataSource = self
+        isScrollEnabled = false
         register(DetailWeatherCell.self, forCellWithReuseIdentifier: DetailWeatherCell.id)
     }
     
