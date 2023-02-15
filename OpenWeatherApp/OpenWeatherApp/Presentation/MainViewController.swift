@@ -52,21 +52,6 @@ class MainViewController: UIViewController {
         viewModel.cities
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
-        
-        
-        let selectedObservable = searchTableView.rx.itemSelected
-            .map { $0.row }
-            .asObservable()
-        
-        Observable.combineLatest(viewModel.filteredCities, selectedObservable) { cities, index in
-            return cities[index]
-        }
-        .subscribe(onNext:{ city in
-            print(city)
-//            self.viewModel.defaultCoord = city.getCityCoord()
-        })
-        .disposed(by: disposeBag)
-        
     }
 }
 
@@ -105,6 +90,23 @@ extension MainViewController {
             }
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
+        
+        let selectedObservable = searchTableView.rx.itemSelected
+            .map {
+                searchController.searchBar.resignFirstResponder()
+                searchController.dismiss(animated: true)
+                self.searchTableView.isHidden = true
+                return $0.row
+            }
+            .asObservable()
+        
+        Observable.combineLatest(viewModel.filteredCities, selectedObservable) { cities, index in
+            return cities[index]
+        }
+        .subscribe(onNext:{ city in
+            print(city)
+        })
+        .disposed(by: disposeBag)
     }
     
     private func setupViewControlletStyle() {
