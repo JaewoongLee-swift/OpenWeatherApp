@@ -9,11 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-struct WeatherService {
-    static let shared = WeatherService()
-    
-    private init() { }
-    
+class WeatherService {
     func requestWeather(at coord: Coordinates) -> Observable<WeatherResponse> {
         let url = "http://api.openweathermap.org/data/2.5/forecast?lat=\(coord.latitude)&lon=\(coord.longitude)&appid=\(OpenWeatherAPI.key)"
         
