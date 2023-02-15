@@ -50,7 +50,7 @@ final class DetailWeatherCell: UICollectionViewCell {
             degreeLabel.text = "\(Int(degree))%"
         case 2:
             statusLabel.text = "바람 속도"
-            degreeLabel.text = "\(degree)%"
+            degreeLabel.text = "\(degree)m/s"
         case 3:
             statusLabel.text = "기압"
             degreeLabel.text = "\(Int(degree))hpa"
