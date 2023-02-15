@@ -36,9 +36,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.todayWeather
-            .subscribe(onNext:{
-                self.todayWeatherView.configure($0)
-            })
+            .bind(to: todayWeatherView.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.weeklyWeather
