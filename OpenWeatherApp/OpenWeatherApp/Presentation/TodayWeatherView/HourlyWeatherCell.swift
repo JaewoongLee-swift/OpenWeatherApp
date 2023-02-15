@@ -35,7 +35,20 @@ final class HourlyWeatherCell: UICollectionViewCell {
         setupLayout()
         setupViewStyle()
         
-        timeLabel.text = "\(hourlyWeather.time)시"
+        var timeText = ""
+        switch hourlyWeather.time {
+        case 0:
+            timeText = "오전 12시"
+        case 1...11:
+            timeText = "오전 \(hourlyWeather.time)시"
+        case 12:
+            timeText = "오후 \(hourlyWeather.time)시"
+        case 13...23:
+            timeText = "오후 \(hourlyWeather.time - 12)시"
+        default:
+            timeText = "오전 0시"
+        }
+        timeLabel.text = timeText
         tempLabel.text = "\(hourlyWeather.temperature)º"
         weatherIconView.image = UIImage(named: hourlyWeather.skyIcon)
     }
