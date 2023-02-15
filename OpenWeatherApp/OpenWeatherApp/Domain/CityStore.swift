@@ -6,25 +6,6 @@
 //
 
 import Foundation
-import RxSwift
-
-struct CityStore {
-    func fetchCity() -> Observable<City> {
-        return Observable.create { observer in
-            let data: Data? = JsonLoader.data(fileName: "citylist")
-            guard let data = data,
-                  let response = try? JSONDecoder().decode(City.self, from: data) else {
-                observer.onCompleted()
-                return
-            }
-            
-            observer.onNext(response)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        }
-    }
-}
 
 class JsonLoader {
     static func load<T: Decodable>(type: T.Type, fileName: String) -> T? {
