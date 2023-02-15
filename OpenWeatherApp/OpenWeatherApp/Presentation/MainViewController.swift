@@ -24,13 +24,24 @@ class MainViewController: UIViewController {
     private lazy var detailWeatherView = DetailWeatherView()
     private lazy var searchTableView = SearchTableView()
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViewControlletStyle()
-        setNavigationBar()
+        attribute()
         setupLayout()
-        
+    }
+    
+    func bind() {
         viewModel.currentWeather
             .bind(to: currentWeatherView.rx.text)
             .disposed(by: disposeBag)
@@ -54,6 +65,11 @@ class MainViewController: UIViewController {
         viewModel.cities
             .bind(to: searchTableView.rx.text)
             .disposed(by: disposeBag)
+    }
+    
+    func attribute() {
+        setupViewControlletStyle()
+        setNavigationBar()
     }
 }
 
