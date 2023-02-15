@@ -13,6 +13,23 @@ struct WeatherResponse: Decodable {
     private var cnt: Int
     private var list: [WeatherItem]
     private var city: CityInfo
+    
+    func getCurrentWeather() -> CurrentWeather {
+        let cityName = city.getName()
+        let mainWeather = list.first?.getMainInfo()
+        let currentTemp = mainWeather?.getTemp()
+        let minTemp = mainWeather?.getTempMin()
+        let maxTemp = mainWeather?.getTempMax()
+        let skyCondition = list.first?.getWeatherCondition()
+        
+        return CurrentWeather(
+            cityName: cityName,
+            currentTemp: currentTemp?.celsiusTemperature ?? 0,
+            skyCondition: skyCondition ?? "Clear",
+            minTemp: minTemp?.celsiusTemperature ?? 0,
+            maxTemp: maxTemp?.celsiusTemperature ?? 0
+        )
+    }
 }
 
 struct WeatherItem: Decodable {
@@ -27,6 +44,14 @@ struct WeatherItem: Decodable {
     private var rainfallProbability: Double
     private var dayInfo: DayInfo
     private var dateText: String
+    
+    func getMainInfo() -> MainInfo {
+        return main
+    }
+    
+    func getWeatherCondition() -> String? {
+        return weather.first?.getWeatherCondition()
+    }
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -54,6 +79,18 @@ struct MainInfo: Decodable {
     private var humidity: Int
     private var tempKf: Double
     
+    func getTemp() -> Double {
+        return temp
+    }
+    
+    func getTempMin() -> Double {
+        return tempMin
+    }
+    
+    func getTempMax() -> Double {
+        return tempMax
+    }
+    
     enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
@@ -72,6 +109,10 @@ struct WeatherInfo: Decodable {
     private var main: String
     private var description: String
     private var icon: String
+    
+    func getWeatherCondition() -> String {
+        return main
+    }
 }
 
 struct CloudInfo: Decodable {
