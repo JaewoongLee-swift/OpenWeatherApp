@@ -104,7 +104,7 @@ extension MainViewController {
                 return cities[index]
             }
             .subscribe(onNext:{ city in
-                print(city)
+                self.viewModel.coordinates.onNext(city.getCityCoord())
             })
             .disposed(by: disposeBag)
     }
