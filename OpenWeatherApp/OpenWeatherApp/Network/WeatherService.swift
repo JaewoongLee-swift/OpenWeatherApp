@@ -11,10 +11,15 @@ import RxSwift
 
 class WeatherService {
     func requestWeather(at coord: Coordinates) -> Observable<WeatherResponse> {
-        let url = "http://api.openweathermap.org/data/2.5/forecast?lat=\(coord.latitude)&lon=\(coord.longitude)&appid=\(OpenWeatherAPI.key)"
+        let url = "http://api.openweathermap.org/data/2.5/forecast"
+        let parameters: [String: Any] = [
+            "lat": coord.latitude,
+            "lon": coord.longitude,
+            "appid": OpenWeatherAPI.key
+        ]
         
         return Observable.create { observer in
-            let task = AF.request(url, method: .get)
+            let task = AF.request(url, method: .get, parameters: parameters)
                 .responseDecodable(of: WeatherResponse.self) { response in
                     switch response.result {
                     case .success(let response):
